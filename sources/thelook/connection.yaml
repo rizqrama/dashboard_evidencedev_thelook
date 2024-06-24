@@ -1,0 +1,5 @@
+# This file was automatically generated
+name: thelook
+type: bigquery
+options:
+  authenticator: service-account

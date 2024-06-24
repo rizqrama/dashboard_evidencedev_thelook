@@ -178,7 +178,7 @@ order BY
 </Grid>
 </center>
 
-## Sales Performance Timeline
+## Sales Performance over Time
 
 ```sql agg_sales_monthly
 
@@ -332,12 +332,12 @@ limit 5
 
   <Grid cols = 2>
   <BarChart
-  data={top5_country}
-  x=country
-  y={inputs.dropdown_alltime_metrics.value}
-  swapXY=true
-  yFmt='#,##0.0,"k"'
-  title="Top 5 Total Sales by Country"
+    data={top5_country}
+    x=country
+    y={inputs.dropdown_alltime_metrics.value}
+    swapXY=true
+    yFmt='#,##0.0,"k"'
+    title="Top 5 Total Sales by Country"
   />
   <BarChart
   data={top5_prodcat}
@@ -350,3 +350,44 @@ limit 5
 </Grid>
 {/if}
 </center>
+
+## Sales Performance by Order Status
+```sql dm_agg_yearly
+select
+    date_trunc('year', order_date) as order_year,
+    extract(year from order_year) as orderyear,
+    order_status,
+    sum(total_values) as a_total_values,
+    sum(total_orders) as a_total_orders,
+    sum(total_items) as a_total_items
+from
+    ${dm_agg_daily_filtered}
+group by all
+```
+<center>
+{#if inputs.dropdown_alltime_metrics.value == 'a_total_values'}
+
+    <BarChart
+    data={dm_agg_yearly}
+    x=orderyear
+    y={inputs.dropdown_alltime_metrics.value}
+    series=order_status
+    yFmt= usd0k
+    xFmt=yyyy
+    />
+
+{:else}
+
+    <BarChart
+    data={dm_agg_yearly}
+    x=orderyear
+    y={inputs.dropdown_alltime_metrics.value}
+    series=order_status
+    yFmt= '#,##0.0,"k"'
+    xFmt=yyyy
+    />
+
+{/if}
+</center>
+
+

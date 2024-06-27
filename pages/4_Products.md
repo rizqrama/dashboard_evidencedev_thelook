@@ -47,14 +47,18 @@ where
     and category = '${inputs.dd_category.value}'
 Group by order_date, category
 ```
-
+<center>
 <CalendarHeatmap 
     data={product_sales_daily_cat}
     date=order_date
     value=p_total_items
     title="Number of Items Sold Daily"
-    subtitle="${inputs.dd_category.label}"
+    subtitle="{inputs.dd_category.label}"
 />
+</center>
+
+
+
 
 
 

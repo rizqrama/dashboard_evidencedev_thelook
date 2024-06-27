@@ -1,4 +1,5 @@
 .evidence/template
+.evidence/meta
 .svelte-kit
 build
 node_modules
@@ -7,3 +8,4 @@ static/data
 *.options.yaml
 .vscode/settings.json
 .env
+.git_backup
